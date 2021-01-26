@@ -1,0 +1,313 @@
+:root {
+  --primary-color: #09fcfd;
+  --secondary-color: #510303;
+  --size-unit: 60px;
+  --enemy-animation-time: 0.3s;
+  --explosions-animation-time: 1s;
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info {
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  font-size: 32px;
+  z-index: 2;
+  position: relative;
+}
+
+.modal,
+.modal-level {
+  width: 50%;
+  height: 50%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.hide {
+  display: none;
+}
+
+.modal__content,
+.modal-level__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__text,
+.modal-level__text,
+.modal__score,
+.modal-level__score {
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.modal__score,
+.modal-level__score {
+  font-size: 1.5rem;
+}
+
+.modal__button {
+  padding: 1em 1em;
+  background-color: transparent;
+  border: 3px solid var(--primary-color);
+  color: var(--primary-color);
+  cursor: pointer;
+  font-size: 1.5rem;
+  margin-top: 1em;
+  outline: none;
+  transition: box-shadow 0.1s ease-in;
+}
+.modal__button:hover {
+  box-shadow: 0px 0px 20px 5px var(--primary-color);
+}
+
+.game {
+  width: 100vw;
+  height: 100vh;
+  background-image: url('./image/bg.png');
+  position: relative;
+}
+
+.player {
+  width: 60px;
+  height: 53.25px;
+  background-image: url("./image/player1.png");
+  animation-duration: 0.3s;
+  animation-timing-function: steps(3);
+  animation-iteration-count: infinite;
+  animation-name: moveUp;
+  position: fixed;
+}
+
+@keyframes moveUp {
+  from {
+    background-position-x: 0px;
+  }
+  to {
+    background-position-x: calc(var(--size-unit) * -3);
+  }
+}
+
+@keyframes moveDown {
+  from {
+    background-position-x: 0px;
+    background-position-y: 106.5px;
+  }
+  to {
+    background-position-x: calc(var(--size-unit) * -3);
+    background-position-y: 106.5px;
+  }
+}
+
+@keyframes moveLeft {
+  from {
+    background-position-x: 0px;
+    background-position-y: 53.25px;
+  }
+  to {
+    background-position-x: calc(var(--size-unit) * -3);
+    background-position-y: 53.25px;
+  }
+}
+
+@keyframes moveRight {
+  from {
+    background-position-x: 0px;
+    background-position-y: 159.75px;
+  }
+  to {
+    background-position-x: calc(var(--size-unit) * -3);
+    background-position-y: 159.75px;
+  }
+}
+
+.enemy {
+  width: 48px;
+  height: 64px;
+  background-image: url(./image/bat-NESW.png);
+  animation-duration: 0.3s;
+  animation-timing-function: steps(3);
+  animation-iteration-count: infinite;
+  animation-name: enemyMoveDown;
+  position: absolute;
+}
+
+.enemy--two {
+  width: 48px;
+  height: 64px;
+  background-image: url(./image/bat-NESW-red.png);
+  animation-duration: 0.3s;
+  animation-timing-function: steps(3);
+  animation-iteration-count: infinite;
+  animation-name: enemyMoveRight;
+  position: absolute;
+}
+
+@keyframes enemyMoveDown {
+  from {
+    background-position-x: 0px;
+  }
+  to {
+    background-position-x: calc(48px * -3);
+  }
+}
+
+@keyframes enemyMoveRight {
+  from {
+    background-position-x: 0px;
+    background-position-y: 64px;
+  }
+  to {
+    background-position-x: calc(48px * -3);
+    background-position-y: 64px;
+  }
+}
+
+.rocket {
+  width: 2px;
+  height: 2px;
+  background: black;
+}
+
+.monster {
+  width: 102px;
+  height: 80px;
+  background-image: url(./image/monster1.png);
+  animation: monsterMove var(--enemy-animation-time) steps(8) infinite;
+  position: absolute;
+}
+
+@keyframes monsterMove {
+  from {
+    background-position-x: 0px;
+  }
+  to {
+    background-position-x: calc(102px * -8);
+  }
+}
+
+.ufo {
+  width: 100px;
+  height: 31.25px;
+  background-image: url(./image/ufospritesheet1.png);
+  animation: ufo var(--enemy-animation-time) steps(8) infinite;
+  position: fixed;
+}
+
+@keyframes ufo {
+  from {
+    background-position-y: 0px;
+  }
+  to {
+    background-position-y: calc(31.25px * -8);
+  }
+}
+
+.dragon {
+  position: absolute;
+  width: 60px;
+  height: 53.25px;
+  background-image: url(./image/dragon-red1.png);
+  animation: attackt 5s infinite,
+    dragonMove var(--enemy-animation-time) steps(3) infinite;
+}
+
+@keyframes attackt {
+  0% {
+    top: var(--y1);
+    left: var(--x1);
+  }
+  100% {
+    top: var(--y2);
+    left: var(--x2);
+  }
+}
+
+@keyframes dragonMove {
+  from {
+    background-position-x: 0px;
+    background-position-y: 106.5px;
+  }
+  to {
+    background-position-x: calc(60px * -3);
+    background-position-y: 106.5px;
+  }
+}
+
+.bullet {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: rgba(214, 88, 15, 0.7);
+  box-shadow: 0px 0px 10px 7px rgba(234, 253, 66, 0.7) 0px 0px 12px 10px
+    rgba(252, 255, 63, 0.863);
+  position: absolute;
+}
+
+.hit {
+  background: var(--secondary-color);
+}
+
+.explosion {
+  width: var(--size-unit);
+  height: var(--size-unit);
+  background-image: url("./image/explosion.png");
+  animation: explode var(--explosions-animation-time) steps(17) forwards;
+  position: fixed;
+}
+
+@keyframes explode {
+  from {
+    background-position-x: 0px;
+  }
+  to {
+    background-position-x: calc(var(--size-unit) * -17);
+  }
+}
+
+.explosion--big {
+  width: calc(var(--size-unit) * 2);
+  height: calc(var(--size-unit) * 2);
+  background-image: url("./image/explosion-big.png");
+  animation: explodeBig var(--explosions-animation-time) steps(17) forwards;
+  position: fixed;
+}
+
+@keyframes explodeBig {
+  from {
+    background-position-x: 0px;
+  }
+  to {
+    background-position-x: calc(var(--size-unit) * -34);
+  }
+}

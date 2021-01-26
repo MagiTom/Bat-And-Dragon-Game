@@ -268,7 +268,7 @@ body {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background-color: rgba(214, 88, 15, 0.7);
+  background-color: rgb(255, 252, 81);
   box-shadow: 0px 0px 10px 7px rgba(234, 253, 66, 0.7) 0px 0px 12px 10px
     rgba(252, 255, 63, 0.863);
   position: absolute;
